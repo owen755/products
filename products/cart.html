@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Review your items at Beauty Bliss - Your personalized shopping cart">
+  <meta name="keywords" content="shopping cart, beauty products, checkout">
+  <meta name="author" content="Beauty Bliss">
+  <title>Your Cart | Beauty Bliss</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* Cart Container */
+    #cart {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 1.5rem;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    #cart-heading {
+      text-align: center;
+      margin-bottom: 1.5rem;
+      font-size: 2rem;
+      color: #333;
+    }
+    /* Empty Cart Message */
+    .empty-cart {
+      text-align: center;
+      font-size: 1.2rem;
+      color: #666;
+      margin: 2rem 0;
+    }
+    .continue-shopping {
+      color: #007bff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .continue-shopping:hover {
+      text-decoration: underline;
+    }
+    /* Cart Items List */
+    .cart-items {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    .cart-item {
+      display: flex;
+      align-items: center;
+      padding: 1rem 0;
+      border-bottom: 1px solid #eee;
+    }
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+    .cart-item-image {
+      width: 100px;
+      height: auto;
+      margin-right: 1rem;
+      border: 1px solid #ddd;
+      border-radius: 4px;
+      object-fit: cover;
+      cursor: pointer;
+    }
+    .item-info {
+      flex: 1;
+    }
+    .item-info h3 {
+      margin: 0 0 0.5rem 0;
+      font-size: 1.4rem;
+      color: #333;
+    }
+    .item-info p {
+      margin: 0.3rem 0;
+      color: #555;
+    }
+    .quantity-controls {
+      display: flex;
+      align-items: center;
+      margin: 0.5rem 0;
+    }
+    .quantity-btn {
+      background: #007bff;
+      border: none;
+      color: #fff;
+      padding: 0.3rem 0.7rem;
+      cursor: pointer;
+      font-size: 1.2rem;
+      border-radius: 4px;
+      margin: 0 0.3rem;
+    }
+    .quantity-btn:hover {
+      background: #0056b3;
+    }
+    .quantity-input {
+      width: 50px;
+      text-align: center;
+      padding: 0.3rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .remove-item {
+      background: #dc3545;
+      border: none;
+      color: #fff;
+      padding: 0.5rem 1rem;
+      cursor: pointer;
+      border-radius: 4px;
+      margin-top: 0.5rem;
+    }
+    .remove-item:hover {
+      background: #c82333;
+    }
+    /* Cart Summary */
+    #cart-summary {
+      margin-top: 2rem;
+      text-align: right;
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #333;
+    }
+    #checkout-button {
+      display: block;
+      width: 100%;
+      max-width: 300px;
+      margin: 1rem auto 0;
+      padding: 0.75rem;
+      background-color: #28a745;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      border-radius: 4px;
+      font-size: 1rem;
+    }
+    #checkout-button:hover {
+      background-color: #218838;
+    }
+
+    /* Lightbox Modal Styles */
+    #lightbox {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.9);
+    }
+    #lightbox-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 80%;
+    }
+    #lightbox .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    #lightbox .close:hover {
+      color: #bbb;
+    }
+    
+    p a {
+      color: #35424a;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .nav-list li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 5px 10px;
+      transition: background 0.3s;
+      display: flex;
+        
+      align-items: center;
+      
+    }
+    .nav-list{
+      display: flex;
+      display direction: row;
+      gap: 20px;
+      justify-content: center;
+
+    }
+    .nav-list li a:hover {
+      background: #e8491d;
+      border-radius: 5px;
+    }
+    header{
+      background-color: #35424a;
+     color: white;
+      padding: 10px 0;
+      text-align: center;
+      color: #35424a;
+      text-decoration: none;
+      font-weight: bold;
+      
+    }
+    header h1 {
+      color: #fff;
+      font-size: 2rem;
+      margin: 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Beauty Bliss</h1>
+    <nav aria-label="Main navigation">
+      <ul class="nav-list">
+        <li><a href="index.html">Shop</a></li>
+        <li><a href="log in.html">Log In</a></li>
+        <li><a href="cart.html">Cart 🛒<span class="count" aria-live="polite">0</span></a></li>
+        <li><a href="signup.html">Sign Up</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content" class="main-content">
+    <section id="cart" class="section active" aria-labelledby="cart-heading">
+      <h1 id="cart-heading" class="section-heading">Your Shopping Cart</h1>
+      
+      <!-- Empty Cart Message -->
+      <div id="empty-cart-message" class="empty-cart" role="alert" aria-live="polite">
+        <p>Your cart is currently empty.</p>
+        <a href="index.html" class="continue-shopping">Continue Shopping</a>
+      </div>
+
+      <!-- Cart Items -->
+      <ul id="cart-contents" class="cart-items" role="list" aria-label="Cart items" hidden>
+        <!-- Cart items will be dynamically inserted here -->
+      </ul>
+
+      <!-- Cart Summary -->
+      <div id="cart-summary" class="cart-summary" role="region" aria-labelledby="summary-heading" hidden>
+        <h2 id="summary-heading" class="visually-hidden">Order Summary</h2>
+        <p>Total: <span id="cart-total" aria-live="polite">KES 0.00</span></p>
+        <button id="checkout-button" class="button-primary" aria-label="Proceed to checkout">Proceed to Payment</button>
+        <a href="index.html" class="continue-shopping">Continue Shopping</a>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo">
+    <p>&copy; <span id="current-year">2025</span> Beauty Bliss. All rights reserved.</p>
+  </footer>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox">
+    <span class="close">&times;</span>
+    <img id="lightbox-content" src="" alt="Full view">
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Retrieve the cart data from localStorage (or initialize as empty array)
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      console.log("Cart loaded from localStorage:", cart);
+
+      // Update cart count in header
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.querySelectorAll('.count').forEach(span => span.textContent = totalItems);
+
+      // Get page elements
+      const emptyMessage = document.getElementById("empty-cart-message");
+      const cartContents = document.getElementById("cart-contents");
+      const cartSummary = document.getElementById("cart-summary");
+      const cartTotalElement = document.getElementById("cart-total");
+      const checkoutButton = document.getElementById("checkout-button");
+
+      // Render the cart items
+      function renderCart() {
+        if (cart.length === 0) {
+          emptyMessage.hidden = false;
+          cartContents.hidden = true;
+          cartSummary.hidden = true;
+          return;
+        }
+        emptyMessage.hidden = true;
+        cartContents.hidden = false;
+        cartSummary.hidden = false;
+
+        let html = "";
+        cart.forEach((item, index) => {
+          html += `
+            <li class="cart-item" data-index="${index}">
+              ${item.image ? `<img src="${item.image}" alt="${item.name}" class="cart-item-image">` : ""}
+              <div class="item-info">
+                <h3>${item.name}</h3>
+                <p>Price: KES ${item.price.toFixed(2)}</p>
+                <div class="quantity-controls">
+                  <button class="quantity-btn minus" data-index="${index}" aria-label="Decrease quantity">−</button>
+                  <input type="number" value="${item.quantity}" min="1" class="quantity-input" data-index="${index}" aria-label="Quantity">
+                  <button class="quantity-btn plus" data-index="${index}" aria-label="Increase quantity">+</button>
+                </div>
+                <p>Total: KES ${(item.price * item.quantity).toFixed(2)}</p>
+                <button class="remove-item" data-index="${index}" aria-label="Remove item">Remove</button>
+              </div>
+            </li>
+          `;
+        });
+        cartContents.innerHTML = html;
+
+        // Update the overall total price
+        const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+        cartTotalElement.textContent = "KES " + totalPrice.toFixed(2);
+
+        // Attach event listeners to remove buttons, quantity buttons, and inputs
+        document.querySelectorAll(".remove-item").forEach(button => {
+          button.addEventListener("click", function() {
+            const index = parseInt(this.getAttribute("data-index"), 10);
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            renderCart();
+          });
+        });
+        document.querySelectorAll(".quantity-btn").forEach(button => {
+          button.addEventListener("click", function() {
+            const index = parseInt(this.getAttribute("data-index"), 10);
+            const input = document.querySelector(`.quantity-input[data-index="${index}"]`);
+            let qty = parseInt(input.value, 10);
+            if (this.classList.contains("plus")) {
+              qty++;
+            } else if (this.classList.contains("minus")) {
+              qty = Math.max(1, qty - 1);
+            }
+            cart[index].quantity = qty;
+            localStorage.setItem("cart", JSON.stringify(cart));
+            renderCart();
+          });
+        });
+        document.querySelectorAll(".quantity-input").forEach(input => {
+          input.addEventListener("change", function() {
+            const index = parseInt(this.getAttribute("data-index"), 10);
+            let qty = Math.max(1, parseInt(this.value, 10));
+            cart[index].quantity = qty;
+            localStorage.setItem("cart", JSON.stringify(cart));
+            renderCart();
+          });
+        });
+
+        // Attach lightbox functionality to cart item images
+        document.querySelectorAll('.cart-item-image').forEach(img => {
+          img.addEventListener('click', function() {
+            lightbox.style.display = 'block';
+            lightboxContent.src = this.src;
+          });
+        });
+      }
+
+      // Initial render
+      renderCart();
+
+      // Checkout button redirects to the checkout page
+      checkoutButton.addEventListener("click", function() {
+        window.location.href = "checkout.html";
+      });
+
+      // Update current year in footer
+      document.getElementById("current-year").textContent = new Date().getFullYear();
+
+      // Lightbox functionality
+      const lightbox = document.getElementById('lightbox');
+      const lightboxContent = document.getElementById('lightbox-content');
+      const closeBtn = document.querySelector('#lightbox .close');
+
+      closeBtn.addEventListener('click', function() {
+        lightbox.style.display = 'none';
+      });
+      lightbox.addEventListener('click', function(e) {
+        if (e.target === lightbox) {
+          lightbox.style.display = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>

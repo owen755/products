@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Secure checkout for your Beauty Bliss order">
+    <meta name="keywords" content="beauty products checkout, online payment, cosmetics purchase">
+    <meta name="author" content="Beauty Bliss">
+    <title>Checkout | Beauty Bliss</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color:#35424a;
+            padding: 1rem;
+            text-align: center;
+        }
+        .nav-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+        .nav-list li a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 0.5rem;
+            border-radius: 5px;
+        }
+        .nav-list li a:hover {
+            background-color: rgba(255, 255, 255, 0.3);
+        }
+        main {
+            max-width: 600px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2 {
+            color: #69ff82;
+            text-align: center;
+        }
+        #checkout-items ul {
+            list-style: none;
+            padding: 0;
+        }
+        #checkout-items li {
+            background: #fff3f8;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .order-summary {
+            text-align: center;
+            font-size: 1.2rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        #payment-section {
+            border: 2px solid #42d157;
+            padding: 1rem;
+            margin-top: 1rem;
+            background: #fff0f5;
+            border-radius: 10px;
+        }
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        label {
+            font-weight: bold;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        #pay-btn {
+            background-color: #27e052;
+            color: white;
+            font-size: 1rem;
+            font-weight: bold;
+            padding: 10px;
+            width: 100%;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        #pay-btn:hover {
+            background-color: #ffc169;
+        }
+        footer {
+            text-align: center;
+            padding: 1rem;
+            margin-top: 2rem;
+            background-color: #000000;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <nav aria-label="Main navigation">
+            <ul class="nav-list">
+                <li><a href="index.html">Shop</a></li>
+                <li><a href="cart.html">Cart 🛒<span class="count" aria-live="polite">0</span></a></li>
+                <li><a href="log in.html">Log In</a></li>
+                <li><a href="signup.html">Sign Up</a></li>
+                <li><a href="checkout.html" aria-current="page">Checkout</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section id="checkout-section">
+            <h1>Checkout</h1>
+            <p>Thank you for shopping with us!</p>
+            <div id="checkout-items"></div>
+            <div class="order-summary">
+                <p>Total: <strong id="total-price">KES 0.00</strong></p>
+            </div>
+            <div id="payment-section" class="hidden">
+                <form id="payment-form">
+                    <div class="form-group">
+                        <label for="phone-number">Phone Number (M-Pesa):</label>
+                        <input type="tel" id="phone-number" name="phone-number" inputmode="numeric" pattern="[0-9]{10}" placeholder="07XX XXX XXX" required>
+                        <span id="phone-error" class="error-message" role="alert" aria-live="polite"></span>
+                    </div>
+                    <button type="submit" id="pay-btn">Complete Payment</button>
+                </form>
+            </div>
+            <div id="empty-message" class="hidden" role="alert" aria-live="polite">
+                <p>Your cart is empty. <a href="index.html">Continue Shopping</a></p>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; <span id="current-year">2025</span> Beauty Bliss. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beauty Bliss - The Amazon of Africa</title>
+  <style>
+    /* ===== Reset and Global Styles ===== */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      line-height: 1.6;
+    }
+    
+    /* ===== Header Styles ===== */
+    header {
+      background: #35424a;
+      color: #ffffff;
+      padding: 20px 0;
+      text-align: center;
+    }
+    
+    header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+    
+    header p {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+    }
+    
+    header nav {
+      margin-top: 10px;
+    }
+    
+    .nav-list {
+      list-style: none;
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+    }
+    
+    .nav-list li a {
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 1rem;
+      padding: 5px 10px;
+      transition: background 0.3s;
+      font-weight: bold;
+    }
+    
+    .nav-list li a:hover {
+      background: #e8491d;
+      border-radius: 5px;
+    }
+    
+    /* ===== Cart Counter ===== */
+    .count {
+      background: red;
+      color: white;
+      font-size: 0.9rem;
+      padding: 2px 8px;
+      border-radius: 50%;
+      position: relative;
+      top: -10px;
+      left: -5px;
+    }
+    
+    /* ===== Container ===== */
+    .container {
+      max-width: 1200px;
+      margin: 20px auto;
+      padding: 0 20px;
+    }
+    
+    /* ===== Products Section ===== */
+    #products {
+      margin-top: 20px;
+    }
+    
+    #products h2 {
+      text-align: center;
+      margin-bottom: 20px;
+      font-size: 2rem;
+    }
+    
+    /* ===== Product Grid ===== */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    
+    /* ===== Product Card ===== */
+    .product {
+      background: #ffffff;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    
+    .product:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    }
+    
+    .product img {
+      width: 100%;
+      display: block;
+      height: 200px;
+      object-fit: cover;
+      cursor: pointer; /* Indicates the image is clickable */
+    }
+    
+    /* ===== Product Details ===== */
+    .product h3 {
+      font-size: 1.3rem;
+      margin: 15px;
+      color: #35424a;
+    }
+    
+    .price-container {
+      margin: 0 15px 15px;
+    }
+    
+    .price-container .offer-price {
+      font-size: 1.2rem;
+      color: #e8491d;
+      font-weight: bold;
+    }
+    
+    .price-container .original-price {
+      font-size: 1rem;
+      color: #777;
+      text-decoration: line-through;
+      margin-right: 10px;
+    }
+    
+    /* ===== Button Styling ===== */
+    .product button {
+      display: block;
+      width: calc(100% - 30px);
+      margin: 0 15px 15px;
+      padding: 10px;
+      border: none;
+      background: #35424a;
+      color: #ffffff;
+      font-size: 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    
+    .product button:hover {
+      background: #e8491d;
+    }
+    
+    /* ===== Status Label ===== */
+    .status-label {
+      position: absolute;
+      background: rgba(232, 73, 29, 0.85);
+      color: #ffffff;
+      padding: 5px 10px;
+      font-size: 0.9rem;
+      top: 10px;
+      left: 10px;
+      border-radius: 5px;
+      z-index: 10;
+    }
+    
+    /* ===== Lightbox (Modal) Styles ===== */
+    .lightbox {
+      display: none;
+      position: fixed;
+      z-index: 2000;
+      padding-top: 60px;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0,0,0,0.9);
+    }
+    
+    .lightbox-content {
+      margin: auto;
+      display: block;
+      max-width: 90%;
+      max-height: 80%;
+    }
+    
+    .close {
+      position: absolute;
+      top: 20px;
+      right: 35px;
+      color: #f1f1f1;
+      font-size: 40px;
+      font-weight: bold;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    
+    .close:hover,
+    .close:focus {
+      color: #bbb;
+      text-decoration: none;
+      cursor: pointer;
+    }
+    
+    /* ===== Responsive Adjustments ===== */
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 2rem;
+      }
+      .nav-list li a {
+        font-size: 0.9rem;
+      }
+    }
+    
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Beauty Bliss</h1>
+    <p>Your one-stop shop for beauty products in Africa!</p>
+    <nav>
+      <ul class="nav-list">
+        <li><a href="index.html">Shop</a></li>
+        <li><a href="cart.html">
+          Cart 🛒<span class="count">0</span>
+        </a></li>
+        <li><a href="log in.html">Log In</a></li>
+        <li><a href="signup.html">Sign Up</a></li>
+        <li><a href="checkout.html">Checkout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="container">
+    <section id="products">
+      <h2>Our Products</h2>
+      <div class="product-grid">
+        <div class="product">
+          <img src="IMG-20250125-WA0008.jpg" alt="Raw Batana Oil">
+          <h3>Raw Batana Oil</h3>
+          <div class="price-container">
+            <span class="offer-price">KES 1800</span>
+          </div>
+          <button onclick="addToCart('Raw Batana Oil', 1800, 'IMG-20250125-WA0008.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="product">
+          <img src="IMG-20250125-WA0011.jpg" alt="Rosemary Oil">
+          <h3>Rosemary Oil</h3>
+          <div class="price-container">
+            <span class="original-price">KES 1000</span>
+            <span class="offer-price">KES 600</span>
+          </div>
+          <button onclick="addToCart('Rosemary Oil', 600, 'IMG-20250125-WA0011.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="product">
+          <img src="IMG-20250125-WA0012.jpg" alt="Peppermint Oil">
+          <h3>Peppermint Oil</h3>
+          <div class="price-container">
+            <span class="original-price">KES 1000</span>
+            <span class="offer-price">KES 600</span>
+          </div>
+          <button onclick="addToCart('Peppermint Oil', 600, 'IMG-20250125-WA0012.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="product">
+          <img src="IMG-20250125-WA0010.jpg" alt="Eucalyptus Oil">
+          <h3>Eucalyptus Oil</h3>
+          <div class="price-container">
+            <span class="original-price">KES 1000</span>
+            <span class="offer-price">KES 600</span>
+          </div>
+          <button onclick="addToCart('Eucalyptus Oil', 600, 'IMG-20250125-WA0010.jpg')">Add to Cart</button>
+        </div>
+
+        <div class="product">
+          <div class="status-label">Coming Soon</div>
+          <img src="IMG-20250127-WA0008.jpg" alt="Jupiter Magic Series">
+          <h3>Jupiter (Magic Series)</h3>
+          <div class="price-container">
+            <span class="offer-price">KES 1000</span>
+          </div>
+          <button disabled>We will notify you when available</button>
+        </div>
+
+        <div class="product">
+          <div class="status-label">Out of Stock</div>
+          <img src="IMG-20250127-WA0006.jpg" alt="Batana Oil">
+          <h3>Batana Oil</h3>
+          <div class="price-container">
+            <span class="offer-price">KES 600</span>
+          </div>
+          <button disabled>Out of Stock</button>
+        </div>
+
+        <div class="product">
+          <div class="status-label">Coming Soon</div>
+          <img src="IMG-20250127-WA0007.jpg" alt="Bird of Paradise">
+          <h3>Bird of Paradise (Pink Mango Flavor)</h3>
+          <div class="price-container">
+            <span class="offer-price">KES 1000</span>
+          </div>
+          <button disabled>We will notify you when available</button>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- Lightbox Modal -->
+  <div id="lightbox" class="lightbox">
+    <span class="close">&times;</span>
+    <img class="lightbox-content" id="lightbox-img" alt="Full view">
+  </div>
+
+  <script>
+    // Initialize the cart from localStorage or as an empty array
+    let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+    // Function to update the cart count displayed in the header
+    function updateCartCount() {
+      const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+      document.querySelectorAll('.count').forEach(span => {
+        span.textContent = totalItems;
+      });
+    }
+
+    // Function to add a product to the cart
+    function addToCart(productName, price, image) {
+      const existingItem = cart.find(item => item.name === productName);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cart.push({ name: productName, price: price, image: image, quantity: 1 });
+      }
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(productName + " added to cart for KES " + price);
+      updateCartCount();
+    }
+
+    // Update the cart count on page load
+    updateCartCount();
+
+    // Lightbox functionality for viewing full image
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightbox-img');
+    const closeBtn = document.querySelector('.lightbox .close');
+
+    // Add click event to all product images
+    document.querySelectorAll('.product img').forEach(img => {
+      img.addEventListener('click', function() {
+        lightbox.style.display = 'block';
+        lightboxImg.src = this.src;
+      });
+    });
+
+    // Close lightbox when the close button is clicked
+    closeBtn.addEventListener('click', function() {
+      lightbox.style.display = 'none';
+    });
+
+    // Also close lightbox when clicking outside the image
+    lightbox.addEventListener('click', function(e) {
+      if (e.target === lightbox) {
+        lightbox.style.display = 'none';
+      }
+    });
+  </script>
+</body>
+</html>
